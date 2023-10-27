@@ -45,15 +45,40 @@ function hitboxes.each(_hitboxes,func)
     end
 end
 
+function hitboxes.edit(layer,id,x,y,w,h,callback)
+    local hitbox=_hitboxes[layer][id]
+    
+    _hitboxes[layer][id]={
+        x=x or hitbox.x,
+        y=y or hitbox.y,
+        w=w or hitbox.w,
+        h=h or hitbox.h,
+        callback=callback or hitbox.callback,
+        hover=false
+    }
+end
+
+function hitboxes.remove(layer,id)
+    _hitboxes[layer][id]=nil
+end
+
+function hitboxes.clear(layer)
+    _hitboxes[layer]=nil
+end
+
+function hitboxes.renderDebug()
+    hitboxes.each(_hitboxes,function(i,id,hitbox)
+        render.setColor(Color((i/4)*((id*20)+timer.realtime()*20),1,1):hsvToRGB())
+        
+        render.drawRectOutline(hitbox.x,hitbox.y,hitbox.w,hitbox.h)
+    end)
+end
+
 hook.add("render","cl_hitboxes",function()
     cursor=cursorFunc()
     
     if hitboxes.debug then
-        hitboxes.each(_hitboxes,function(i,id,hitbox)
-            render.setColor(Color((i/4)*((id*20)+timer.realtime()*20),1,1):hsvToRGB())
-            
-            render.drawRectOutline(hitbox.x,hitbox.y,hitbox.w,hitbox.h)
-        end)
+        renderDebug()
     end
 end)
 
