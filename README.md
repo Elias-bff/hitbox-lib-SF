@@ -1,2 +1,1 @@
-# hitbox lib SF
- Hitbox library for rendering on Starfall
+Readme not done, demos are being worked on - library is done though
