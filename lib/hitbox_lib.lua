@@ -78,7 +78,7 @@ hook.add("render","cl_hitboxes",function()
     cursor=cursorFunc()
     
     if hitboxes.debug then
-        renderDebug()
+        hitboxes.renderDebug()
     end
 end)
 
