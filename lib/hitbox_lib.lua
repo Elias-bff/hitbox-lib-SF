@@ -59,7 +59,7 @@ function hitboxes.edit(layer,id,x,y,w,h,callback)
 end
 
 function hitboxes.remove(layer,id)
-    hook.remove("inputPressed","hitId_"..layer..";"..id)
+    hook.remove("inputPressed","hitId_"..i..";"..id)
 
     _hitboxes[layer][id]=nil
 end
@@ -99,7 +99,7 @@ hook.add("think","cl_hitboxes",function()
         if curLayer and curLayer!=i then
             hitboxes.each(_hitboxes,function(i,id,hitbox)
                 if curLayer<i then
-                    hook.remove("inputPressed","hitId_"..layer..";"..id)
+                    hook.remove("inputPressed","hitId_"..i..";"..id)
                             
                     hitbox.hover=false
                 end
@@ -115,7 +115,7 @@ hook.add("think","cl_hitboxes",function()
                 hitbox.hover=true
 
                 if hitbox.callback then
-                    hook.add("inputPressed","hitId_"..layer..";"..id,function(key)
+                    hook.add("inputPressed","hitId_"..i..";"..id,function(key)
                         hitbox.callback(key,cursor)
                     end)
                 end
@@ -124,7 +124,7 @@ hook.add("think","cl_hitboxes",function()
             if hitbox.hover then
                 hitbox.hover=false
                 
-                hook.remove("inputPressed","hitId_"..layer..";"..id)
+                hook.remove("inputPressed","hitId_"..i..";"..id)
             end
         end
         
