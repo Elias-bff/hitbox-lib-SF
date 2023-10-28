@@ -97,7 +97,6 @@ hook.add("render","cl_hitboxes",function()
 end)
 
 hook.add("think","cl_hitboxes",function()
-    local _hitboxes=table.reverse(_hitboxes)
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
