@@ -65,6 +65,10 @@ function hitboxes.remove(layer,id)
 end
 
 function hitboxes.clear(layer)
+    if !_hitboxes[layer] then
+        return
+    end
+    
     for id,hitbox in pairs(_hitboxes[layer]) do
         hook.remove("inputPressed","hitId_"..layer..";"..id)
     end
