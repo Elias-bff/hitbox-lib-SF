@@ -69,9 +69,6 @@ function hitboxes.clear(layer)
         hook.remove("inputPressed","hitId_"..layer..";"..id)
     end
 
-    hitboxes.each(_hitboxes,function(i,id,hitbox)
-    end
-
     _hitboxes[layer]=nil
 end
 
