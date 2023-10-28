@@ -60,10 +60,16 @@ end
 
 function hitboxes.remove(layer,id)
     _hitboxes[layer][id]=nil
+    
+    hook.remove("inputPressed","hitId_"..i..id)
 end
 
 function hitboxes.clear(layer)
     _hitboxes[layer]=nil
+
+    hitboxes.each(_hitboxes,function(i,id,hitbox)
+        hook.remove("inputPressed","hitId_"..i..id)
+    end
 end
 
 function hitboxes.renderDebug()
