@@ -7,7 +7,7 @@ _hitboxes={}
 
 cursorFunc=function()
     local x,y=render.cursorPos()
-    return Vector(x,y)
+    return Vector(x,y) or Vector()
 end
 
 function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
@@ -59,6 +59,10 @@ function hitboxes.edit(layer,id,x,y,w,h,callback)
 end
 
 function hitboxes.remove(layer,id)
+    if !_hitboxes[layer] then
+        return
+    end
+    
     hook.remove("inputPressed","hitId_"..i..";"..id)
 
     _hitboxes[layer][id]=nil
@@ -68,7 +72,7 @@ function hitboxes.clear(layer)
     if !_hitboxes[layer] then
         return
     end
-    
+
     for id,hitbox in pairs(_hitboxes[layer]) do
         hook.remove("inputPressed","hitId_"..layer..";"..id)
     end
@@ -97,19 +101,15 @@ hook.add("think","cl_hitboxes",function()
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
-        if curLayer and curLayer!=i then
+        if curLayer and curLayer<i then
             hitboxes.each(_hitboxes,function(i,id,hitbox)
-                if curLayer<i then
-                    hook.remove("inputPressed","hitId_"..i..";"..id)
-                            
-                    hitbox.hover=false
-                end
+                hook.remove("inputPressed","hitId_"..i..";"..id)
             end)
             
             return
         end
             
-        if (cursor or Vector()):withinAABox(Vector(hitbox.x,hitbox.y),Vector(hitbox.x+hitbox.w,hitbox.y+hitbox.h)) then
+        if cursor:withinAABox(Vector(hitbox.x,hitbox.y),Vector(hitbox.x+hitbox.w,hitbox.y+hitbox.h)) then
             curLayer=i
             
             if !hitbox.hover then
