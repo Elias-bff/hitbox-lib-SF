@@ -105,6 +105,8 @@ hook.add("think","cl_hitboxes",function()
             hitboxes.each(_hitboxes,function(i,id,hitbox)
                 if curLayer<i then
                     hook.remove("inputPressed","hitId_"..i..";"..id)
+                            
+                    hitbox.hover=false
                 end
             end)
             
