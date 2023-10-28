@@ -59,17 +59,17 @@ function hitboxes.edit(layer,id,x,y,w,h,callback)
 end
 
 function hitboxes.remove(layer,id)
-    _hitboxes[layer][id]=nil
-    
     hook.remove("inputPressed","hitId_"..i..id)
+
+    _hitboxes[layer][id]=nil
 end
 
 function hitboxes.clear(layer)
-    _hitboxes[layer]=nil
-
     hitboxes.each(_hitboxes,function(i,id,hitbox)
         hook.remove("inputPressed","hitId_"..i..id)
     end
+
+    _hitboxes[layer]=nil
 end
 
 function hitboxes.renderDebug()
