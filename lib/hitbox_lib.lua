@@ -101,11 +101,11 @@ hook.add("think","cl_hitboxes",function()
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
-        if curLayer and curLayer<i then
+        if curLayer and curLayer!=i then
             hitboxes.each(_hitboxes,function(i,id,hitbox)
-                hook.remove("inputPressed","hitId_"..i..";"..id)
-
-                hitbox.hover=false
+                if curLayer<i then
+                    hook.remove("inputPressed","hitId_"..i..";"..id)
+                end
             end)
             
             return
