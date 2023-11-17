@@ -6,7 +6,7 @@ hitboxes=class("hitboxes")
 _hitboxes={}
 
 cursorFunc=function()
-    local x,y=render.cursorPos()
+    x,y=render.cursorPos()
     return Vector(x,y) or Vector()
 end
 
