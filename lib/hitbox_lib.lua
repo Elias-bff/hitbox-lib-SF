@@ -120,6 +120,10 @@ hook.add("think","cl_hitboxes",function()
 
                 if hitbox.callback then
                     hook.add("inputPressed","hitId_"..i..";"..id,function(key)
+                        if hitboxes.filter and !hitboxes.filter(key) then
+                            return
+                        end
+                        
                         hitbox.callback(key,cursor)
                     end)
                 end
