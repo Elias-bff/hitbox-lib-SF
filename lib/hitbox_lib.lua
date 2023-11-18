@@ -81,13 +81,9 @@ function hitboxes.clear(layer)
 end
 
 function hitboxes.purge()
-    for index,layer in pairs(_hitboxes) do
-        for id,hitbox in pairs(layer) do
-            hook.remove("inputPressed","hitId_"..index..";"..id)
-        end
+    for layer,_ in pairs(_hitboxes) do
+        hitboxes.clear(layer)
     end
-
-    _hitboxes={}
 end
 
 function hitboxes.renderDebug()
