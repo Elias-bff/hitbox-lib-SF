@@ -80,6 +80,16 @@ function hitboxes.clear(layer)
     _hitboxes[layer]=nil
 end
 
+function hitboxes.purge()
+    for index,layer in pairs(_hitboxes) do
+        for id,hitbox in pairs(layer) do
+            hook.remove("inputPressed","hitId_"..index..";"..id)
+        end
+    end
+
+    _hitboxes={}
+end
+
 function hitboxes.renderDebug()
     hitboxes.each(_hitboxes,function(i,id,hitbox)
         render.setColor(Color((i/4)*((id*20)+timer.realtime()*20),1,1):hsvToRGB())
