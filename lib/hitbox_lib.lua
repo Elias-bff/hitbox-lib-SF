@@ -94,8 +94,12 @@ function hitboxes.renderDebug()
     end)
 end
 
-hook.add("render","cl_cursor",function()
+hook.add("render","cl_hitboxes",function()
     cursor=cursorFunc()
+    
+    if hitboxes.debug then
+        hitboxes.renderDebug()
+    end
 end)
 
 hook.add("think","cl_hitboxes",function()
