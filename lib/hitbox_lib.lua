@@ -88,7 +88,7 @@ end
 
 function hitboxes.renderDebug()
     hitboxes.each(_hitboxes,function(i,id,hitbox)
-        render.setColor(Color((i/4)*((id*20)+timer.realtime()*20),1,1):hsvToRGB())
+        render.setColor(Color((i/4)*((!isstring(id) and id*20 or 0)+timer.realtime()*20),1,1):hsvToRGB())
         
         render.drawRectOutline(hitbox.x,hitbox.y,hitbox.w,hitbox.h)
     end)
@@ -129,7 +129,7 @@ hook.add("think","cl_hitboxes",function()
                         if hitboxes.filter and !hitboxes.filter(key) then
                             return
                         end
-                        
+
                         hitbox.callback(key,cursor)
                     end)
                 end
@@ -141,6 +141,5 @@ hook.add("think","cl_hitboxes",function()
                 hook.remove("inputPressed","hitId_"..i..";"..id)
             end
         end
-        
     end)
 end)
