@@ -119,7 +119,9 @@ hook.add("think","cl_hitboxes",function()
         end
 
         if cursor:withinAABox(Vector(hitbox.x,hitbox.y),Vector(hitbox.x+hitbox.w,hitbox.y+hitbox.h)) then
-            curLayer=i
+            if i!=0 then
+                curLayer=i
+            end
             
             if !hitbox.hover then
                 hitbox.hover=true
