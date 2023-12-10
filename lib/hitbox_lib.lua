@@ -37,33 +37,6 @@ function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
     }
 end
 
-function hitboxes.trigger(layer,x,y,w,h,callback,hover,renderFunc)
-    if !_hitboxes[layer] then
-        _hitboxes[layer]={}
-    end
-    
-    if _hitboxes[layer]["_trigger"] then
-        if hover and _hitboxes[layer]["_trigger"].hover then
-            hover()
-        end
-        
-        if renderFunc then
-            renderFunc()
-        end
-        
-        return
-    end
-    
-    _hitboxes[layer]["_trigger"]={
-        x=x,
-        y=y,
-        w=w,
-        h=h,
-        callback=callback,
-        hover=false
-    }
-end
-
 function hitboxes.each(_hitboxes,func)
     for i,layer in pairs(_hitboxes) do
         for id,hitbox in pairs(layer) do
@@ -133,7 +106,7 @@ hook.add("think","cl_hitboxes",function()
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
-        if curLayer and curLayer!=i and !id=="_trigger" then
+        if curLayer and curLayer!=i then
             hitboxes.each(_hitboxes,function(i,id,hitbox)
                 if curLayer<i then
                     hook.remove("inputPressed","hitId_"..i..";"..id)
