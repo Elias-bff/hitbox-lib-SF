@@ -21,13 +21,40 @@ function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
         end
         
         if renderFunc then
-            renderFunc(x,y,w,h)
+            renderFunc()
         end
         
         return
     end
     
     _hitboxes[layer][id]={
+        x=x,
+        y=y,
+        w=w,
+        h=h,
+        callback=callback,
+        hover=false
+    }
+end
+
+function hitboxes.trigger(layer,x,y,w,h,callback,hover,renderFunc)
+    if !_hitboxes[layer] then
+        _hitboxes[layer]={}
+    end
+    
+    if _hitboxes[layer]["_trigger"] then
+        if hover and _hitboxes[layer]["_trigger"].hover then
+            hover()
+        end
+        
+        if renderFunc then
+            renderFunc()
+        end
+        
+        return
+    end
+    
+    _hitboxes[layer]["_trigger"]={
         x=x,
         y=y,
         w=w,
@@ -106,7 +133,7 @@ hook.add("think","cl_hitboxes",function()
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
-        if curLayer and curLayer!=i then
+        if curLayer and curLayer!=i and !id=="_trigger" then
             hitboxes.each(_hitboxes,function(i,id,hitbox)
                 if curLayer<i then
                     hook.remove("inputPressed","hitId_"..i..";"..id)
@@ -117,7 +144,7 @@ hook.add("think","cl_hitboxes",function()
             
             return
         end
-            
+
         if cursor:withinAABox(Vector(hitbox.x,hitbox.y),Vector(hitbox.x+hitbox.w,hitbox.y+hitbox.h)) then
             curLayer=i
             
