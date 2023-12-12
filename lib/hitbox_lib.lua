@@ -21,7 +21,7 @@ function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
         end
         
         if renderFunc then
-            renderFunc()
+            renderFunc(x,y,w,h)
         end
         
         return
