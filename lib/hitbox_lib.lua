@@ -115,13 +115,9 @@ hook.add("think","cl_hitboxes",function()
                 curLayer=i
             end
 
-            if !hitbox.hover then
-                hitbox.hover=true
-            end
+            hitbox.hover=true
         else
-            if hitbox.hover then
-                hitbox.hover=false
-            end
+            hitbox.hover=false
         end
     end)
 end)
