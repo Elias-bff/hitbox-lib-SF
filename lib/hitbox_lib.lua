@@ -125,7 +125,7 @@ end)
 hook.add("inputPressed","_hitboxes",function(key)
     hitboxes.each(_hitboxes,function(i,id,hitbox)
         if hitbox.hover and hitbox.callback then
-            if hitboxes.filter and !hitboxes.filter(key) then
+            if hitboxes.filter and !hitboxes.filter(key,hitbox,i,id) then
                 return
             end
 
