@@ -11,7 +11,7 @@ cursorFunc=function()
     return Vector(x,y) or Vector()
 end
 
-function hitboxes.create(window,layer,id,x,y,w,h,callback,hover,renderFunc)
+function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
     if !_hitboxes[layer] then
         _hitboxes[layer]={}
     end
@@ -23,8 +23,7 @@ function hitboxes.create(window,layer,id,x,y,w,h,callback,hover,renderFunc)
             w=w,
             h=h,
             callback=callback,
-            hover=false,
-            window=window
+            hover=false
         }
     else
         if hover and _hitboxes[layer][id].hover then
@@ -111,21 +110,11 @@ hook.add("think","cl_hitboxes",function()
         end
 
         if cursor:withinAABox(Vector(hitbox.x,hitbox.y),Vector(hitbox.x+hitbox.w,hitbox.y+hitbox.h)) then
-            local frontWindow=viva.windows[#viva.windows]
-
             if i!=0 then
                 curLayer=i
             end
 
-            if hitbox.window==frontWindow then
-                hitbox.hover=true
-            else
-                if !cursor:withinAABox(Vector(frontWindow.data.x,frontWindow.data.y),Vector(frontWindow.data.x+frontWindow.data.width,frontWindow.data.y+frontWindow.data.height)) then
-                    hitbox.hover=true
-                else
-                    hitbox.hover=false
-                end
-            end
+            hitbox.hover=true
         else
             hitbox.hover=false
         end
