@@ -32,8 +32,8 @@ function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
 
         _hitboxes[layer][id].x=x
         _hitboxes[layer][id].y=y
-        _hitboxes[layer][id].width=width
-        _hitboxes[layer][id].height=height
+        _hitboxes[layer][id].w=w
+        _hitboxes[layer][id].h=h
     end 
 
     if renderFunc then
