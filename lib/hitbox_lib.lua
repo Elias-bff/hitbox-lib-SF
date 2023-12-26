@@ -29,6 +29,11 @@ function hitboxes.create(layer,id,x,y,w,h,callback,hover,renderFunc)
         if hover and _hitboxes[layer][id].hover then
             hover()
         end
+
+        _hitboxes[layer][id].x=x
+        _hitboxes[layer][id].y=y
+        _hitboxes[layer][id].width=width
+        _hitboxes[layer][id].height=height
     end 
 
     if renderFunc then
@@ -87,7 +92,7 @@ function hitboxes.renderDebug()
     end)
 end
 
-hook.add("render","cl_hitboxes",function()
+hook.add("render","_hitboxes",function()
     cursor=cursorFunc()
     
     if hitboxes.debug then
@@ -95,7 +100,7 @@ hook.add("render","cl_hitboxes",function()
     end
 end)
 
-hook.add("think","cl_hitboxes",function()
+hook.add("think","_hitboxes",function()
     local curLayer=nil
     
     hitboxes.each(_hitboxes,function(i,id,hitbox)
